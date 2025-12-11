@@ -1,37 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool isPrime(int value) {
-    if (value < 2) return false;
-
-    for (int divisor = 2; divisor * divisor <= value; divisor++) {
-        if (value % divisor == 0) {
-            return false;
-        }
+bool isPrime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) return false;
     }
     return true;
 }
 
 int main() {
-    ifstream inputFile("../inputs/states.txt");
+    ifstream file("../inputs/states.txt");
 
-    vector<int> values;
-    int number;
+    vector<int> nums;
+    int x;
+    while (file >> x) nums.push_back(x);
 
-    while (inputFile >> number) {
-        values.push_back(number);
+    int done = 0;
+    for (int n : nums) {
+        if (isPrime(n)) done++;
     }
 
-    int terminalCount = 0;
-
-    for (int value : values) {
-        if (value % 2 == 0) {
-            terminalCount++;
-        } else if (isPrime(value)) {
-            terminalCount++;
-        }
-    }
-
-    cout << terminalCount;
+    cout << done;
     return 0;
 }
